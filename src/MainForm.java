@@ -1,6 +1,10 @@
+import Database.SQLiteInterface;
+import Exceptions.DatabaseException;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import java.util.ArrayList;
 
 public class MainForm {
     private JTextField searchTextField;
@@ -9,6 +13,7 @@ public class MainForm {
     private JTable table;
     private JButton cartButton;
     private JFrame frame;
+    private ArrayList<AutoPart> parts;
 
     public MainForm() {
         frame = new JFrame("Piese Auto");
@@ -16,6 +21,8 @@ public class MainForm {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
+        parts = new ArrayList<>();
 
         table.setModel(new DefaultTableModel() {
             final String[] columnNames = {"Id", "Name", "Brand", "Model", "Price", "Stock"};
@@ -30,9 +37,11 @@ public class MainForm {
                 return columnNames[index];
             }
         });
+
+        //addRowToTable("name", "brand", "model", "id", 5.38, 10);
     }
 
-    private void addRowToTable(String name, String brand, String model, String id, double price, int stock) {
+    private void addRowToTable(String id, String name, String brand, String model, double price, int stock) {
         ((DefaultTableModel)table.getModel()).addRow(new String[]{id, name, brand, model, Double.toString(price), Integer.toString(stock)});
     }
 

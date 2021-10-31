@@ -1,17 +1,23 @@
 public class AutoPart {
+    private String id;
     private String name;
     private String brand;
     private String model;
-    private String id;
     private double price;
     private int stock;
 
-    public AutoPart(String name, String brand, String model, String id, double price, int stock) {
+    public AutoPart(String id, String name, String brand, String model, double price, int stock) {
+        this.id = id;
         this.name = name;
         this.brand = brand;
         this.model = model;
         this.price = price;
         this.stock = stock;
+    }
+
+    //id
+    private String getId(){
+        return id;
     }
 
     //name
@@ -36,11 +42,6 @@ public class AutoPart {
     }
     private void setModel(String model){
         this.model = model;
-    }
-
-    //id
-    private String getId(){
-        return id;
     }
 
     //price
