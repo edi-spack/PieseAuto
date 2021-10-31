@@ -18,12 +18,12 @@ public class MainForm {
     }
 
     public static void main(String[] args) {
-        new Login();
+        //new Login();
 
-        /*JFrame frame = new JFrame("Piese Auto");
+        JFrame frame = new JFrame("Piese Auto");
         frame.setContentPane(new MainForm().rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setVisible(true);*/
+        frame.setVisible(true);
     }
 }
