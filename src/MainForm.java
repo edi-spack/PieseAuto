@@ -1,4 +1,5 @@
 import Common.AutoPart;
+import Common.Cart;
 import Database.SQLiteInterface;
 import Exceptions.DatabaseException;
 
@@ -7,6 +8,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainForm {
@@ -16,6 +19,7 @@ public class MainForm {
     private JTable table;
     private TableRowSorter sorter;
     private JButton cartButton;
+    private JButton addToCartBtn;
     private JFrame frame;
     private ArrayList<AutoPart> parts;
 
@@ -28,7 +32,7 @@ public class MainForm {
 
         parts = new ArrayList<>();
 
-        DefaultTableModel model = new DefaultTableModel() {
+        DefaultTableModel tableModel = new DefaultTableModel() {
             final String[] columnNames = {"Id", "Name", "Brand", "Model", "Price", "Stock"};
 
             @Override
@@ -42,8 +46,8 @@ public class MainForm {
             }
         };
 
-        sorter = new TableRowSorter(model);
-        table.setModel(model);
+        sorter = new TableRowSorter(tableModel);
+        table.setModel(tableModel);
         table.setRowSorter(sorter);
 
         SQLiteInterface database = new SQLiteInterface();
@@ -51,6 +55,31 @@ public class MainForm {
         parts = database.getDatabase();
         fillTable();
         searchParts();
+
+        cartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CartUserInterface();
+            }
+        });
+
+        addToCartBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuffer sb = new StringBuffer();
+
+                String id = tableModel.getValueAt(table.getSelectedRow(),0).toString();
+                String name = tableModel.getValueAt(table.getSelectedRow(),1).toString();
+                String brand = tableModel.getValueAt(table.getSelectedRow(),2).toString();
+                String model = tableModel.getValueAt(table.getSelectedRow(),3).toString();
+                double price = Double.parseDouble(tableModel.getValueAt(table.getSelectedRow(),4).toString());
+                int stock = Integer.parseInt(tableModel.getValueAt(table.getSelectedRow(), 5).toString());
+
+                Cart myCart = Cart.getInstance();
+                myCart.addToCart(new AutoPart(id, name, brand, model, price, stock));
+
+            }
+        });
     }
 
     private void addRowToTable(String id, String name, String brand, String model, double price, int stock) {
