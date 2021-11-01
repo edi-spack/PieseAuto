@@ -50,6 +50,7 @@ public class MainForm {
         //database.addPart("1110F/S", "Roata", "Opel", "Zafira", 100.00, 10);
         parts = database.getDatabase();
         fillTable();
+        searchParts();
     }
 
     private void addRowToTable(String id, String name, String brand, String model, double price, int stock) {
