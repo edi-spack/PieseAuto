@@ -1,9 +1,7 @@
-import Database.SQLiteInterface;
-import Exceptions.DatabaseException;
+import Common.AutoPart;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import java.util.ArrayList;
 
 public class MainForm {

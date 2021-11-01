@@ -1,3 +1,5 @@
+package Common;
+
 public class AutoPart {
     private String id;
     private String name;

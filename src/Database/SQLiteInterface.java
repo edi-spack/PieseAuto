@@ -1,5 +1,6 @@
 package Database;
 
+import Common.AutoPart;
 import Exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -19,7 +20,7 @@ public class SQLiteInterface {
                     + "stock INTEGER"
                     + ");";
 
-        executeQuery(query);
+        executeSqlUpdate(query);
     }
 
     public void addPart(String id, String name, String brand, String model, double price, int stock) throws DatabaseException {
@@ -32,12 +33,12 @@ public class SQLiteInterface {
                 + stock
                 + ");";
 
-        executeQuery(query);
+        executeSqlUpdate(query);
     }
 
     public void removePart(String id) throws DatabaseException {
         String query = "DELETE FROM parts WHERE id = '" + id + "';";
-        executeQuery(query);
+        executeSqlUpdate(query);
     }
 
     public void updatePart(String id, String name, String brand, String model, double price, int stock) throws DatabaseException {
@@ -49,16 +50,58 @@ public class SQLiteInterface {
                 + "stock = " + stock + " "
                 + "WHERE id = " + id + ";";
 
-        executeQuery(query);
+        executeSqlUpdate(query);
     }
 
-    private void executeQuery(String query) throws DatabaseException {
+    public AutoPart getPart(String id) throws DatabaseException {
+        String query = "SELECT id, name, brand, model, price, stock "
+                + "FROM parts WHERE id = " + id + ";";
+
+        ResultSet resultSet = executeSqlQuery(query);
+
+        try {
+            resultSet.next();
+            String name = resultSet.getString("name");
+            String brand = resultSet.getString("brand");
+            String model = resultSet.getString("model");
+            double price = resultSet.getDouble("price");
+            int stock = resultSet.getInt("stock");
+
+            return new AutoPart(id, name, brand, model, price, stock);
+        } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    private void executeSqlUpdate(String query) throws DatabaseException {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:parts.db");
             Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+            statement.setQueryTimeout(30);
             statement.executeUpdate(query);
+        }
+        catch(SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+        finally {
+            try {
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e) {
+                throw new DatabaseException(e.getMessage());
+            }
+        }
+    }
+
+    private ResultSet executeSqlQuery(String query) throws DatabaseException {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:parts.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            return statement.executeQuery(query);
         }
         catch(SQLException e) {
             throw new DatabaseException(e.getMessage());
