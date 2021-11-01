@@ -1,5 +1,8 @@
 package Common;
 
+import Database.SQLiteInterface;
+import Exceptions.DatabaseException;
+
 import java.util.ArrayList;
 
 public class Cart implements ICart{
@@ -22,8 +25,8 @@ public class Cart implements ICart{
         partsList.add(product);
     }
 
-    public void removeFromCart(AutoPart product) {
-        partsList.remove(product);
+    public void removeFromCart(int index) {
+        partsList.remove(index);
     }
 
     public int getTotalProducts() {
@@ -40,7 +43,14 @@ public class Cart implements ICart{
         return result;
     }
 
-    public void completeOrder() {
+    public void completeOrder() throws DatabaseException {
+
+        SQLiteInterface database = new SQLiteInterface();
+
+        for (AutoPart part: partsList) {
+            database.updateStock(part.getId(), 1);
+        }
+
         partsList.clear();
     }
 

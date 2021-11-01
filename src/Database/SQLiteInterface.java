@@ -54,6 +54,14 @@ public class SQLiteInterface {
         executeSqlUpdate(query);
     }
 
+    public void updateStock(String id, int count) throws DatabaseException {
+        String query = "UPDATE parts SET "
+                + "stock = stock - " + count + " "
+                + "WHERE id = \"" + id + "\";";
+
+        executeSqlUpdate(query);
+    }
+
     public AutoPart getPart(String id) throws DatabaseException {
         String query = "SELECT * FROM parts WHERE id = " + id + ";";
 
