@@ -2,56 +2,39 @@ package Common;
 
 import java.util.ArrayList;
 
-public class Cart implements ICart{
+public class Cart(){
+    private static  Cart instance;
+    private static ArrayList<AutoPart> listaPiese;
 
-    private static Cart instance;
-    private ArrayList<AutoPart> partsList;
+    private Cart(){
 
-    private Cart() {
-        partsList = new ArrayList<>();
     }
 
-    public static Cart getInstance() {
-        if(instance == null) {
-            instance = new Cart();
-        }
-        return instance;
+    public static Cart getInstance(){
+
     }
 
-    public void addToCart(AutoPart product) {
-        partsList.add(product);
+    public  void addToCart(AutoPart piesa){
+
     }
 
-    public void removeFromCart(AutoPart product) {
-        partsList.remove(product);
+    public void removeFromCart(AutoPart piesa){
+
     }
 
-    public int getTotalProducts() {
-        return partsList.size();
+    public int getTotalProducts(){
+
     }
 
-    public double getTotalPrice() {
-        double result = 0.0;
+    public double getTotalPrice(){
 
-        for (AutoPart part: partsList) {
-            result += part.getPrice();
-        }
-
-        return result;
     }
 
-    public void completeOrder() {
-        partsList.clear();
+    public void clearAll(){
+
     }
 
-    public ArrayList<String[]> getCartItems() {
-        ArrayList<String[]> result = new ArrayList<>();
+    public void completeOrder(){
 
-        for (AutoPart part: partsList) {
-            String[] temp = {part.getName(), part.getBrand(), part.getModel(), Double.toString(part.getPrice())};
-            result.add(temp);
-        }
-
-        return result;
     }
 }
