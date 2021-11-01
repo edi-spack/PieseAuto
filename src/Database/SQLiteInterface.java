@@ -24,19 +24,31 @@ public class SQLiteInterface {
 
     public void addPart(String id, String name, String brand, String model, double price, int stock) throws DatabaseException {
         String query = "INSERT INTO parts VALUES ("
-                    + id + ", "
-                    + name + ", "
-                    + brand+ ", "
-                    + model + ", "
-                    + price + ", "
-                    + stock
-                    + ");";
+                + id + ", "
+                + name + ", "
+                + brand+ ", "
+                + model + ", "
+                + price + ", "
+                + stock
+                + ");";
 
         executeQuery(query);
     }
 
     public void removePart(String id) throws DatabaseException {
         String query = "DELETE FROM parts WHERE id = '" + id + "';";
+        executeQuery(query);
+    }
+
+    public void updatePart(String id, String name, String brand, String model, double price, int stock) throws DatabaseException {
+        String query = "UPDATE parts SET "
+                + "name = " + name + ", "
+                + "brand = " + brand+ ", "
+                + "model = " + model + ", "
+                + "price = " + price + ", "
+                + "stock = " + stock + " "
+                + "WHERE id = " + id + ";";
+
         executeQuery(query);
     }
 
