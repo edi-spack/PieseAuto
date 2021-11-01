@@ -18,47 +18,47 @@ public class AutoPart {
     }
 
     //id
-    private String getId(){
+    public String getId(){
         return id;
     }
 
     //name
-    private String getName(){
+    public String getName(){
         return name;
     }
-    private void setName(String name){
+    public void setName(String name){
         this.name = name;
     }
 
     //brand
-    private String getBrand(){
+    public String getBrand(){
         return brand;
     }
-    private void setBrand(String brand){
+    public void setBrand(String brand){
         this.brand = brand;
     }
 
     //model
-    private String getModel(){
+    public String getModel(){
         return model;
     }
-    private void setModel(String model){
+    public void setModel(String model){
         this.model = model;
     }
 
     //price
-    private double getPrice(){
+    public double getPrice(){
         return price;
     }
-    private void setPrice(double price){
+    public void setPrice(double price){
         this.price = price;
     }
 
     //stock
-    private int getStock(){
+    public int getStock(){
         return stock;
     }
-    private void setStock(int stock){
+    public void setStock(int stock){
         this.stock = stock;
     }
 }
