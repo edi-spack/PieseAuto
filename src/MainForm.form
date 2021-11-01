@@ -107,6 +107,7 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="0-50"/>
             </properties>
           </component>
@@ -115,6 +116,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="50-100"/>
             </properties>
           </component>
@@ -123,6 +125,7 @@
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="100-200"/>
             </properties>
           </component>
@@ -131,6 +134,7 @@
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="200-500"/>
             </properties>
           </component>
@@ -139,6 +143,7 @@
               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="500-1000"/>
             </properties>
           </component>
@@ -147,6 +152,7 @@
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <selected value="true"/>
               <text value="Peste 1000"/>
             </properties>
           </component>
