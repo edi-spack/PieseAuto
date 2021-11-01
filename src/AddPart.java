@@ -16,12 +16,12 @@ public class AddPart extends JDialog {
 
     public AddPart(MainForm form) {
         this.form = form;
-        setTitle("Add Part");
+        setTitle("Adauga piesa auto");
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        //setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
