@@ -20,6 +20,14 @@ public class MainForm {
     private TableRowSorter sorter;
     private JButton cartButton;
     private JButton addToCartBtn;
+    private JCheckBox checkBox1;
+    private JCheckBox checkBox2;
+    private JCheckBox checkBox3;
+    private JCheckBox checkBox4;
+    private JCheckBox checkBox5;
+    private JCheckBox checkBox6;
+    private JCheckBox checkBox7;
+    private JButton removeBtn;
     private JFrame frame;
     private MainForm form;
     private static ArrayList<AutoPart> parts;
@@ -35,7 +43,7 @@ public class MainForm {
         parts = new ArrayList<>();
 
         DefaultTableModel tableModel = new DefaultTableModel() {
-            final String[] columnNames = {"Id", "Name", "Brand", "Model", "Price", "Stock"};
+            final String[] columnNames = {"ID", "Nume", "Marca", "Model", "Pret", "Stoc"};
 
             @Override
             public int getColumnCount() {
@@ -87,13 +95,158 @@ public class MainForm {
            }
         });
 
-        // Listeners
+        removeBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id = tableModel.getValueAt(table.getSelectedRow(), 0).toString();
+                SQLiteInterface database = null;
+
+                try {
+                    database = new SQLiteInterface();
+                    database.removePart(id);
+                    fillTable();
+                } catch (DatabaseException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AddPart addPartForm = new AddPart(form);
             }
         });
+
+        checkBox1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filterTable();
+            }
+        });
+
+        checkBox2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filterTable();
+            }
+        });
+
+        checkBox3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filterTable();
+            }
+        });
+
+        checkBox4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filterTable();
+            }
+        });
+
+        checkBox5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filterTable();
+            }
+        });
+
+        checkBox6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filterTable();
+            }
+        });
+
+        checkBox7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                filterTable();
+            }
+        });
+    }
+
+    private void filterTable() {
+        SQLiteInterface database = null;
+
+        try {
+            database = new SQLiteInterface();
+            parts = database.getDatabase();
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+
+        ((DefaultTableModel)table.getModel()).setRowCount(0);
+
+        for (AutoPart part: parts) {
+            if(checkBox7.isSelected()) {
+                if(part.getStock() > 0) {
+                    if (checkBox1.isSelected()) {
+                        if (part.getPrice() >= 0 && part.getPrice() <= 50) {
+                            addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                        }
+                    }
+                    if (checkBox2.isSelected()) {
+                        if (part.getPrice() >= 50 && part.getPrice() <= 100) {
+                            addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                        }
+                    }
+                    if (checkBox3.isSelected()) {
+                        if (part.getPrice() >= 100 && part.getPrice() <= 200) {
+                            addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                        }
+                    }
+                    if (checkBox4.isSelected()) {
+                        if (part.getPrice() >= 200 && part.getPrice() <= 500) {
+                            addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                        }
+                    }
+                    if (checkBox5.isSelected()) {
+                        if (part.getPrice() >= 500 && part.getPrice() <= 1000) {
+                            addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                        }
+                    }
+                    if (checkBox6.isSelected()) {
+                        if (part.getPrice() > 1000) {
+                            addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                        }
+                    }
+                }
+            } else {
+                if (checkBox1.isSelected()) {
+                    if (part.getPrice() >= 0 && part.getPrice() <= 50) {
+                        addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                    }
+                }
+                if (checkBox2.isSelected()) {
+                    if (part.getPrice() >= 50 && part.getPrice() <= 100) {
+                        addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                    }
+                }
+                if (checkBox3.isSelected()) {
+                    if (part.getPrice() >= 100 && part.getPrice() <= 200) {
+                        addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                    }
+                }
+                if (checkBox4.isSelected()) {
+                    if (part.getPrice() >= 200 && part.getPrice() <= 500) {
+                        addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                    }
+                }
+                if (checkBox5.isSelected()) {
+                    if (part.getPrice() >= 500 && part.getPrice() <= 1000) {
+                        addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                    }
+                }
+                if (checkBox6.isSelected()) {
+                    if (part.getPrice() > 1000) {
+                        addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
+                    }
+                }
+            }
+        }
     }
 
     public void addPart(String id, String name, String brand, String model, double price, int stock) {
@@ -122,6 +275,7 @@ public class MainForm {
             addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
         }
     }
+
     private void searchParts() {
         searchTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -146,7 +300,6 @@ public class MainForm {
         });
     }
 
-
     private void addRowToTable(String id, String name, String brand, String model, double price, int stock) {
         ((DefaultTableModel)table.getModel()).addRow(new String[]{id, name, brand, model, Double.toString(price), Integer.toString(stock)});
     }
@@ -156,4 +309,3 @@ public class MainForm {
         new MainForm();
     }
 }
-

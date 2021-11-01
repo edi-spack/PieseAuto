@@ -63,7 +63,7 @@
             </constraints>
             <properties>
               <labelFor value="d7d08"/>
-              <text value="Id"/>
+              <text value="ID"/>
             </properties>
           </component>
           <component id="d7d08" class="javax.swing.JTextField" binding="idTextField">
@@ -80,7 +80,7 @@
             </constraints>
             <properties>
               <labelFor value="7299f"/>
-              <text value="Name"/>
+              <text value="Nume"/>
             </properties>
           </component>
           <component id="7299f" class="javax.swing.JTextField" binding="nameTextField">
@@ -97,7 +97,7 @@
             </constraints>
             <properties>
               <labelFor value="e8eb3"/>
-              <text value="Brand"/>
+              <text value="Marca"/>
             </properties>
           </component>
           <component id="e8eb3" class="javax.swing.JTextField" binding="brandTextField">
@@ -131,7 +131,7 @@
             </constraints>
             <properties>
               <labelFor value="eff6e"/>
-              <text value="Price"/>
+              <text value="Pret"/>
             </properties>
           </component>
           <component id="eff6e" class="javax.swing.JTextField" binding="priceTextField">
@@ -148,7 +148,7 @@
             </constraints>
             <properties>
               <labelFor value="4f8f6"/>
-              <text value="Stock"/>
+              <text value="Stoc"/>
             </properties>
           </component>
           <component id="4f8f6" class="javax.swing.JTextField" binding="stockTextField">
