@@ -8,11 +8,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class SQLiteInterface {
     public SQLiteInterface() throws DatabaseException {
         String query = "CREATE TABLE IF NOT EXISTS parts ("
-                    + "id INTEGER PRIMARY KEY, "
+                    + "id TEXT PRIMARY KEY, "
                     + "name TEXT, "
                     + "brand TEXT, "
                     + "model TEXT, "
@@ -54,8 +55,7 @@ public class SQLiteInterface {
     }
 
     public AutoPart getPart(String id) throws DatabaseException {
-        String query = "SELECT id, name, brand, model, price, stock "
-                + "FROM parts WHERE id = " + id + ";";
+        String query = "SELECT * FROM parts WHERE id = " + id + ";";
 
         ResultSet resultSet = executeSqlQuery(query);
 
@@ -69,6 +69,32 @@ public class SQLiteInterface {
 
             return new AutoPart(id, name, brand, model, price, stock);
         } catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    public ArrayList<AutoPart> getAllData() throws DatabaseException {
+        String query = "SELECT * FROM parts";
+        ArrayList<AutoPart> partsList = new ArrayList<>();
+
+        ResultSet resultSet = executeSqlQuery(query);
+
+        try {
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String name = resultSet.getString("name");
+                String brand = resultSet.getString("brand");
+                String model = resultSet.getString("model");
+                double price = resultSet.getDouble("price");
+                int stock = resultSet.getInt("stock");
+
+                System.out.println(id + name + brand + model + price + stock);
+
+                partsList.add(new AutoPart(id, name, brand, model, price, stock));
+            }
+            return partsList;
+        }
+        catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }
     }
