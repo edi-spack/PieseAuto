@@ -3,7 +3,10 @@ import Database.SQLiteInterface;
 import Exceptions.DatabaseException;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.util.ArrayList;
 
 public class MainForm {
@@ -11,6 +14,7 @@ public class MainForm {
     private JPanel rootPanel;
     private JButton addButton;
     private JTable table;
+    private TableRowSorter sorter;
     private JButton cartButton;
     private JFrame frame;
     private ArrayList<AutoPart> parts;
@@ -24,7 +28,7 @@ public class MainForm {
 
         parts = new ArrayList<>();
 
-        table.setModel(new DefaultTableModel() {
+        DefaultTableModel model = new DefaultTableModel() {
             final String[] columnNames = {"Id", "Name", "Brand", "Model", "Price", "Stock"};
 
             @Override
@@ -36,7 +40,11 @@ public class MainForm {
             public String getColumnName(int index) {
                 return columnNames[index];
             }
-        });
+        };
+
+        sorter = new TableRowSorter(model);
+        table.setModel(model);
+        table.setRowSorter(sorter);
 
         SQLiteInterface database = new SQLiteInterface();
         //database.addPart("1110F/S", "Roata", "Opel", "Zafira", 100.00, 10);
@@ -53,6 +61,30 @@ public class MainForm {
             addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
         }
     }
+    private void searchParts() {
+        searchTextField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search(searchTextField.getText());
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search(searchTextField.getText());
+            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                search(searchTextField.getText());
+            }
+            public void search(String str) {
+                if (str.length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter(str));
+                }
+            }
+        });
+    }
+
 
     public static void main(String[] args) throws DatabaseException {
         //new Login();
