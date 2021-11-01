@@ -22,7 +22,7 @@ public class MainForm {
     private JButton addToCartBtn;
     private JFrame frame;
     private MainForm form;
-    private ArrayList<AutoPart> parts;
+    private static ArrayList<AutoPart> parts;
 
     public MainForm() {
         form = this;
@@ -58,7 +58,7 @@ public class MainForm {
         cartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CartUserInterface();
+                CartUserInterface cui = new CartUserInterface(form);
             }
         });
 
@@ -75,7 +75,15 @@ public class MainForm {
                int stock = Integer.parseInt(tableModel.getValueAt(table.getSelectedRow(), 5).toString());
 
                Cart myCart = Cart.getInstance();
-               myCart.addToCart(new AutoPart(id, name, brand, model, price, stock));
+
+               if (stock > 0) {
+                   myCart.addToCart(new AutoPart(id, name, brand, model, price, stock));
+               }
+               else {
+                   JOptionPane.showMessageDialog(null, "Stoc epuizat", "",
+                           JOptionPane.INFORMATION_MESSAGE);
+               }
+
            }
         });
 
@@ -98,7 +106,7 @@ public class MainForm {
         }
     }
 
-    private void fillTable() {
+    public void fillTable() {
         SQLiteInterface database = null;
 
         try {
