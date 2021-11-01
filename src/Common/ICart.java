@@ -1,9 +1,12 @@
 package Common;
 
 public interface ICart {
-    ICart getInstance();
-    void addToCart();
-    void removeFromCart();
+    static ICart getInstance() {
+        return null;
+    }
+
+    void addToCart(AutoPart part);
+    void removeFromCart(AutoPart part);
     int getTotalProducts();
     double getTotalPrice();
     void completeOrder();
