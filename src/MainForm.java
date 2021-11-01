@@ -27,6 +27,7 @@ public class MainForm {
     private JCheckBox checkBox5;
     private JCheckBox checkBox6;
     private JCheckBox checkBox7;
+    private JButton removeBtn;
     private JFrame frame;
     private MainForm form;
     private ArrayList<AutoPart> parts;
@@ -84,6 +85,22 @@ public class MainForm {
                Cart myCart = Cart.getInstance();
                myCart.addToCart(new AutoPart(id, name, brand, model, price, stock));
            }
+        });
+
+        removeBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id = tableModel.getValueAt(table.getSelectedRow(), 0).toString();
+                SQLiteInterface database = null;
+
+                try {
+                    database = new SQLiteInterface();
+                    database.removePart(id);
+                    fillTable();
+                } catch (DatabaseException ex) {
+                    ex.printStackTrace();
+                }
+            }
         });
 
         addButton.addActionListener(new ActionListener() {
