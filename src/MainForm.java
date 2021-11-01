@@ -20,6 +20,13 @@ public class MainForm {
     private TableRowSorter sorter;
     private JButton cartButton;
     private JButton addToCartBtn;
+    private JCheckBox checkBox1;
+    private JCheckBox checkBox2;
+    private JCheckBox checkBox3;
+    private JCheckBox checkBox4;
+    private JCheckBox checkBox5;
+    private JCheckBox checkBox6;
+    private JCheckBox checkBox7;
     private JFrame frame;
     private MainForm form;
     private ArrayList<AutoPart> parts;
@@ -35,7 +42,7 @@ public class MainForm {
         parts = new ArrayList<>();
 
         DefaultTableModel tableModel = new DefaultTableModel() {
-            final String[] columnNames = {"Id", "Name", "Brand", "Model", "Price", "Stock"};
+            final String[] columnNames = {"ID", "Nume", "Marca", "Model", "Pret", "Stoc"};
 
             @Override
             public int getColumnCount() {
@@ -79,7 +86,6 @@ public class MainForm {
            }
         });
 
-        // Listeners
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,6 +120,7 @@ public class MainForm {
             addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
         }
     }
+
     private void searchParts() {
         searchTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -137,7 +144,6 @@ public class MainForm {
             }
         });
     }
-
 
     private void addRowToTable(String id, String name, String brand, String model, double price, int stock) {
         ((DefaultTableModel)table.getModel()).addRow(new String[]{id, name, brand, model, Double.toString(price), Integer.toString(stock)});
