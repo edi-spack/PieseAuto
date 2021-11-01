@@ -41,7 +41,8 @@ public class MainForm {
         //addRowToTable("name", "brand", "model", "id", 5.38, 10);
 
         SQLiteInterface database = new SQLiteInterface();
-        parts = database.getAllData();
+        //database.addPart("1110F/S", "Roata", "Opel", "Zafira", 100.00, 10);
+        parts = database.getDatabase();
         fillTable(parts);
     }
 

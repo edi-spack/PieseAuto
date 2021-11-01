@@ -26,10 +26,10 @@ public class SQLiteInterface {
 
     public void addPart(String id, String name, String brand, String model, double price, int stock) throws DatabaseException {
         String query = "INSERT INTO parts VALUES ("
-                + id + ", "
-                + name + ", "
-                + brand+ ", "
-                + model + ", "
+                + "\"" + id + "\", "
+                + "\"" + name + "\", "
+                + "\"" + brand+ "\", "
+                + "\"" + model + "\", "
                 + price + ", "
                 + stock
                 + ");";
@@ -76,6 +76,7 @@ public class SQLiteInterface {
     public ArrayList<AutoPart> getAllData() throws DatabaseException {
         String query = "SELECT * FROM parts";
         ArrayList<AutoPart> partsList = new ArrayList<>();
+
 
         ResultSet resultSet = executeSqlQuery(query);
 
@@ -127,6 +128,8 @@ public class SQLiteInterface {
             connection = DriverManager.getConnection("jdbc:sqlite:parts.db");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
+            statement.executeQuery(query);
+
             return statement.executeQuery(query);
         }
         catch(SQLException e) {
@@ -141,5 +144,35 @@ public class SQLiteInterface {
                 throw new DatabaseException(e.getMessage());
             }
         }
+    }
+
+    public ArrayList<AutoPart> getDatabase() throws DatabaseException {
+        String query = "SELECT * FROM parts";
+        Connection connection = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:parts.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            ResultSet result = statement.executeQuery(query);
+            ArrayList<AutoPart> parts = new ArrayList<>();
+
+            while (result.next()) {
+                String id = result.getString("id");
+                String name = result.getString("name");
+                String brand = result.getString("brand");
+                String model = result.getString("model");
+                double price = result.getDouble("price");
+                int stock = result.getInt("stock");
+
+                parts.add(new AutoPart(id, name, brand, model, price, stock));
+            }
+
+            return parts;
+        }
+        catch (SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+
     }
 }
