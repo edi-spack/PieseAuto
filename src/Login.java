@@ -25,7 +25,7 @@ public class Login extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     checkUser();
-                } catch (UnknownUser ex) {
+                } catch (UnknownUser | DatabaseException ex) {
                     ex.printStackTrace();
                 }
 
@@ -33,7 +33,7 @@ public class Login extends JDialog {
         });
     }
 
-    public void checkUser() throws UnknownUser {
+    public void checkUser() throws UnknownUser, DatabaseException {
         ArrayList<String[]> credentials = new ArrayList<>();
         String[] firstUser = {"user01", "1234"};
         credentials.add(firstUser);
