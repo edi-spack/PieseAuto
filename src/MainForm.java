@@ -38,19 +38,17 @@ public class MainForm {
             }
         });
 
-        //addRowToTable("name", "brand", "model", "id", 5.38, 10);
-
         SQLiteInterface database = new SQLiteInterface();
         //database.addPart("1110F/S", "Roata", "Opel", "Zafira", 100.00, 10);
         parts = database.getDatabase();
-        fillTable(parts);
+        fillTable();
     }
 
     private void addRowToTable(String id, String name, String brand, String model, double price, int stock) {
         ((DefaultTableModel)table.getModel()).addRow(new String[]{id, name, brand, model, Double.toString(price), Integer.toString(stock)});
     }
 
-    private void fillTable(ArrayList<AutoPart> partsList) {
+    private void fillTable() {
         for (AutoPart part: parts) {
             addRowToTable(part.getId(), part.getName(), part.getBrand(), part.getModel(), part.getPrice(), part.getStock());
         }

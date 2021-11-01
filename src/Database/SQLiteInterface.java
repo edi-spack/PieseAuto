@@ -73,88 +73,11 @@ public class SQLiteInterface {
         }
     }
 
-    public ArrayList<AutoPart> getAllData() throws DatabaseException {
-        String query = "SELECT * FROM parts";
-        ArrayList<AutoPart> partsList = new ArrayList<>();
-
-
-        ResultSet resultSet = executeSqlQuery(query);
-
-        try {
-            while (resultSet.next()) {
-                String id = resultSet.getString("id");
-                String name = resultSet.getString("name");
-                String brand = resultSet.getString("brand");
-                String model = resultSet.getString("model");
-                double price = resultSet.getDouble("price");
-                int stock = resultSet.getInt("stock");
-
-                System.out.println(id + name + brand + model + price + stock);
-
-                partsList.add(new AutoPart(id, name, brand, model, price, stock));
-            }
-            return partsList;
-        }
-        catch (SQLException e) {
-            throw new DatabaseException(e.getMessage());
-        }
-    }
-
-    private void executeSqlUpdate(String query) throws DatabaseException {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:sqlite:parts.db");
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);
-            statement.executeUpdate(query);
-        }
-        catch(SQLException e) {
-            throw new DatabaseException(e.getMessage());
-        }
-        finally {
-            try {
-                if(connection != null)
-                    connection.close();
-            }
-            catch(SQLException e) {
-                throw new DatabaseException(e.getMessage());
-            }
-        }
-    }
-
-    private ResultSet executeSqlQuery(String query) throws DatabaseException {
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:sqlite:parts.db");
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);
-            statement.executeQuery(query);
-
-            return statement.executeQuery(query);
-        }
-        catch(SQLException e) {
-            throw new DatabaseException(e.getMessage());
-        }
-        finally {
-            try {
-                if(connection != null)
-                    connection.close();
-            }
-            catch(SQLException e) {
-                throw new DatabaseException(e.getMessage());
-            }
-        }
-    }
-
     public ArrayList<AutoPart> getDatabase() throws DatabaseException {
-        String query = "SELECT * FROM parts";
-        Connection connection = null;
+        String query = "SELECT * FROM parts;";
 
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:parts.db");
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);
-            ResultSet result = statement.executeQuery(query);
+            ResultSet result = executeSqlQuery(query);
             ArrayList<AutoPart> parts = new ArrayList<>();
 
             while (result.next()) {
@@ -173,6 +96,33 @@ public class SQLiteInterface {
         catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         }
+    }
 
+    private void executeSqlUpdate(String query) throws DatabaseException {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:parts.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            statement.executeUpdate(query);
+        }
+        catch(SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    private ResultSet executeSqlQuery(String query) throws DatabaseException {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:parts.db");
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+            statement.executeQuery(query);
+
+            return statement.executeQuery(query);
+        }
+        catch(SQLException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 }
