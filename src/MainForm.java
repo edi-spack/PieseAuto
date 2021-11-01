@@ -63,19 +63,21 @@ public class MainForm {
         });
 
         addToCartBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StringBuffer sb = new StringBuffer();
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               StringBuffer sb = new StringBuffer();
 
-                String id = tableModel.getValueAt(table.getSelectedRow(),0).toString();
-                String name = tableModel.getValueAt(table.getSelectedRow(),1).toString();
-                String brand = tableModel.getValueAt(table.getSelectedRow(),2).toString();
-                String model = tableModel.getValueAt(table.getSelectedRow(),3).toString();
-                double price = Double.parseDouble(tableModel.getValueAt(table.getSelectedRow(),4).toString());
-                int stock = Integer.parseInt(tableModel.getValueAt(table.getSelectedRow(), 5).toString());
+               String id = tableModel.getValueAt(table.getSelectedRow(), 0).toString();
+               String name = tableModel.getValueAt(table.getSelectedRow(), 1).toString();
+               String brand = tableModel.getValueAt(table.getSelectedRow(), 2).toString();
+               String model = tableModel.getValueAt(table.getSelectedRow(), 3).toString();
+               double price = Double.parseDouble(tableModel.getValueAt(table.getSelectedRow(), 4).toString());
+               int stock = Integer.parseInt(tableModel.getValueAt(table.getSelectedRow(), 5).toString());
 
-                Cart myCart = Cart.getInstance();
-                myCart.addToCart(new AutoPart(id, name, brand, model, price, stock));
+               Cart myCart = Cart.getInstance();
+               myCart.addToCart(new AutoPart(id, name, brand, model, price, stock));
+           }
+        });
 
         // Listeners
         addButton.addActionListener(new ActionListener() {
@@ -146,3 +148,4 @@ public class MainForm {
         new MainForm();
     }
 }
+
