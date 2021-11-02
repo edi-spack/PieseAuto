@@ -1,0 +1,5 @@
+﻿Acesta este un magazin de piese auto. 
+Intrarea în magazin (accesarea aplicației) se fece prin logare pe aplicatia cu același nume. 
+Se pot adăuga sau să se șteargă produse. Aici vei găsi piese auto de la diverse mărci auto. 
+Pur și simplu selectezi un produs din cele prezente pentru a fi achiziționat. 
+Exemple de piese: bucșe, placute de frana, aripi, etc.
