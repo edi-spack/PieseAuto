@@ -18,7 +18,6 @@ public class Login extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         pack();
         setVisible(true);
-        //setLocationRelativeTo(null);
 
         buttonLogin.addActionListener(new ActionListener() {
             @Override

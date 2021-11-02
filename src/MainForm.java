@@ -306,6 +306,5 @@ public class MainForm {
 
     public static void main(String[] args) throws DatabaseException {
         new Login();
-        //new MainForm();
     }
 }
